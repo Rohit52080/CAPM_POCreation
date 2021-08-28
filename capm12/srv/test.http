@@ -1,0 +1,48 @@
+GET http://localhost:4004/CatalogService/
+
+###
+GET http://localhost:4004/CatalogService/$metadata
+
+###Read top 2 employee
+GET http://localhost:4004/CatalogService/EmployeeSet?$top=2
+
+### Read PO
+GET http://localhost:4004/CatalogService/POs?$top=2&$expand=Items,PARTNER_GUID
+
+### Create new employe
+POST http://localhost:4004/CatalogService/EmployeeSet
+Content-Type: application/json
+
+{
+"nameFirst": "Joe",
+"nameMiddle": "Angrer",
+"nameLast": "Goal",
+"nameInitials": null,
+"sex": "M",
+"language": "E",
+"phoneNumber": null,
+"email": "Joe.Angrer@itelo.info",
+"loginName": "BROWNF",
+# "Currency_code": "USD",
+"salaryAmount": 53021,
+"accountNumber": "6677889900",
+"bankId": "26005885",
+"bankName": "My Bank of New York"
+}
+
+###Read single employee which was just created 
+GET  http://localhost:4004/CatalogService/EmployeeSet/5dfab765-20c7-4b05-8e52-e46e80adeee6
+
+###Update the salary for the employee
+PATCH  http://localhost:4004/CatalogService/EmployeeSet/5dfab765-20c7-4b05-8e52-e46e80adeee6
+Content-Type: application/json
+
+{
+    "salaryAmount": "100000",
+    "Currency_code": "INR"
+}
+
+###Never do put (it will make null all the fields that are not passed). Always use PATCH
+
+###Read Single POs -OLD syntax work as it is not uuid type
+GET  http://localhost:4004/CatalogService/POs('74867AD200E41EDBA5D8B0C98DC28052')

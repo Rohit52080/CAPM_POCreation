@@ -2,7 +2,7 @@ using { rohit.db.master, rohit.db.transaction } from '../db/datamodel';
 
 
 service CatalogSerive@(path:'/CatalogService') {
-
+    @Capabilities : { Insertable, Updatable: true, Deletable }
     entity EmployeeSet as projection on master.employees;
     entity AddressSet as projection on master.address;
     entity ProductSet as projection on master.product;
