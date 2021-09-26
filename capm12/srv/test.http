@@ -14,8 +14,8 @@ POST http://localhost:4004/CatalogService/EmployeeSet
 Content-Type: application/json
 
 {
-"nameFirst": "Joe",
-"nameMiddle": "Angrer",
+"nameFirst": "Jason",
+"nameMiddle": "Powell",
 "nameLast": "Goal",
 "nameInitials": null,
 "sex": "M",
@@ -46,3 +46,58 @@ Content-Type: application/json
 
 ###Read Single POs -OLD syntax work as it is not uuid type
 GET  http://localhost:4004/CatalogService/POs('74867AD200E41EDBA5D8B0C98DC28052')
+
+### Read from Custom Handler
+GET http://localhost:4004/mysrvdemo/ReadEmployeeSrv/02BD2137-0890-1EEA-A6C2-BB55C197A7FB
+
+
+###Create employee with custome handler 
+POST  http://localhost:4004/mysrvdemo/InsertEmployeeSrv
+Content-Type: application/json
+
+{
+"nameFirst": "Joe",
+"nameMiddle": "Angrer",
+"nameLast": "Goal",
+"nameInitials": null,
+"sex": "M",
+"language": "E",
+"phoneNumber": null,
+"email": "Joe.Angrer@itelo.info",
+"loginName": "BROWNF",
+"Currency_code": "USD",
+"salaryAmount": 53021,
+"accountNumber": "6677889900",
+"bankId": "26005885",
+"bankName": "My Bank of New York"
+}
+
+###Upadte using Custom Hanlder
+PUT  http://localhost:4004/mysrvdemo/UpdateEmployeeSrv/02BD2137-0890-1EEA-A6C2-BB55C197A7FB
+Content-Type: application/json
+
+{
+"ID": "02BD2137-0890-1EEA-A6C2-BB55C197A7FB",
+"nameFirst": "Raw",
+"nameMiddle": "Burger"
+}
+
+### Delete the data using Custom Handler
+DELETE  http://localhost:4004/mysrvdemo/DeleteEmployeeSrv/21079ed5-35f5-44fc-894e-573e491b9175
+Content-Type: application/json
+
+{
+    "ID": "21079ed5-35f5-44fc-894e-573e491b9175"
+}
+
+### Get a randon POs
+http://localhost:4004/CatalogService/POs?$top=5
+
+
+### Calling action for Enitity
+POST  http://localhost:4004/CatalogService/POs('74867AD200E41EDBA5D8B0C98DC28052')/CatalogService/boost
+Content-Type: application/json
+
+### Get for largest Order
+GET  http://localhost:4004/CatalogService/POs('74867AD200E41EDBA5D8B0C98DC28052')/CatalogService/largestOrder()
+Content-Type: application/json
