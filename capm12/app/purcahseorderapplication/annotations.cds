@@ -1,0 +1,1 @@
+using CatalogSerive as service from '../../srv/CatalogService';
