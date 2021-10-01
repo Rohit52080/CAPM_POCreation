@@ -95,17 +95,17 @@ http://localhost:4004/CatalogService/POs?$top=5
 
 
 ### Calling action for Enitity
-POST  http://localhost:4004/CatalogService/POs('74867AD200E41EDBA5D8B0C98DC2A052')/CatalogService.boost
+POST  http://localhost:4004/CatalogService/POs('02BD2137-0890-1EEA-A6C2-BB55C1978999')/CatalogService.boost
 Content-Type: application/json
 
 {}
 
 ### Get for largest Order
-GET  http://localhost:4004/CatalogService/POs('74867AD200E41EDBA5D8B0C98DC2A052')
+GET  http://localhost:4004/CatalogService/POs('02BD2137-0890-1EEA-A6C2-BB55C1978999')
 Content-Type: application/json
 
 ### Get for largest Order
-GET  http://localhost:4004/CatalogService/POs('74867AD200E41EDBA5D8B0C98DC2A052')/CatalogService.largestOrder()
+GET  http://localhost:4004/CatalogService/POs('02BD2137-0890-1EEA-A6C2-BB55C1978999')/CatalogService.largestOrder()
 
 
 
