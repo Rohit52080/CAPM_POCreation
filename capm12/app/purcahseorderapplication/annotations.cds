@@ -1,5 +1,40 @@
 using { CatalogService } from '../../srv/CatalogService';
 
+
+// to get the value help for Partner guid on detail page
+annotate CatalogService.POs with {
+    PARTNER_GUID@(
+        Common:{
+            Text: PARTNER_GUID.COMPANY_NAME
+        },
+        ValueList.entity: CatalogService.BPSet
+    )
+};
+
+@cds.odata.valuelist
+annotate CatalogService.BPSet with @(
+    UI.Identification:[{
+        $Type : 'UI.DataField',
+        Value : COMPANY_NAME,
+    }]
+);
+
+annotate CatalogService.POItems with {
+    PRODUCT_GUID@(
+        Common:{
+            Text: PRODUCT_GUID.DESCRIPTION
+        },
+        ValueList.entity: CatalogService.ProductSet
+    )
+};
+
+@cds.odata.valuelist
+annotate CatalogService.ProductSet with @(
+    UI.Identification:[{
+        $Type : 'UI.DataField',
+        Value : DESCRIPTION,
+    }]
+);
 //First screen with Search Field and Table Columns
 
 annotate CatalogService.POs with @(
@@ -9,7 +44,7 @@ annotate CatalogService.POs with @(
             PO_ID,
             GROSS_AMOUNT,
             LIFECYCLE_STATUS,
-            CURRENCY_CODE
+            Currency.code
         ],
         // to get the default columns when application loads
         LineItem  : [
@@ -29,7 +64,7 @@ annotate CatalogService.POs with @(
             },
             {
                 $Type : 'UI.DataField',
-                Value : CURRENCY_CODE
+                Value : Currency_code
             },
             {
                 $Type : 'UI.DataField',
@@ -103,7 +138,7 @@ annotate CatalogService.POs with @(
                 },
                 {
                     $Type : 'UI.DataField',
-                    Value : CURRENCY_CODE
+                    Value : Currency.code
                 },
                 {
                     $Type : 'UI.DataField',
@@ -148,7 +183,7 @@ annotate CatalogService.POs with @(
               },
               {
                   $Type : 'UI.DataField',
-                  Value : CURRENCY_CODE
+                  Value : Currency.code
               }
               
           ],
@@ -159,7 +194,7 @@ annotate CatalogService.POs with @(
               TypeNamePlural : 'PO Items',
               Title : {
                   $Type : 'UI.DataField',
-                  Value : NODE_KEY
+                  Value : ID
               },
               Description : {
                   $Type : 'UI.DataField',
@@ -172,12 +207,13 @@ annotate CatalogService.POs with @(
                   $Type : 'UI.ReferenceFacet',
                   Target : '@UI.FieldGroup#LineItemHeader',
                   Label : '{i18n>lineItemHeader}'
-              },
-              {
-                  Label : 'Product Details',
-                  $Type : 'UI.ReferenceFacet',
-                  Target : 'PRODUCT_GUID/@UI.FieldGroup#ProductDetails'
               }
+            //   ,
+            //   {
+            //       Label : 'Product Details',
+            //       $Type : 'UI.ReferenceFacet',
+            //       Target : 'PRODUCT_GUID/@UI.FieldGroup#ProductDetails'
+            //   }
           ],
           FieldGroup#LineItemHeader  : {
               $Type : 'UI.FieldGroupType',
@@ -189,6 +225,10 @@ annotate CatalogService.POs with @(
                   {
                       $Type : 'UI.DataField',
                       Value : PRODUCT_GUID_NODE_KEY
+                  },
+                  {
+                      $Type : 'UI.DataField',
+                      Value : PRODUCT_GUID.DESCRIPTION
                   },
                   {
                       $Type : 'UI.DataField',
@@ -204,7 +244,7 @@ annotate CatalogService.POs with @(
                   },
                   {
                       $Type : 'UI.DataField',
-                      Value : CURRENCY_CODE
+                      Value : Currency.code
                   }
               ]
               
@@ -214,49 +254,49 @@ annotate CatalogService.POs with @(
 
     ) ;
 
-    annotate CatalogService.ProductSet with @(
+    // annotate CatalogService.ProductSet with @(
 
-        UI: {
-            HeaderInfo  : {
-                $Type : 'UI.HeaderInfoType',
-                TypeName : 'Product',
-                TypeNamePlural : 'Products',
-                Title : {
-                    Value : PRODUCT_ID
-                },
-                Description :{
-                    Value : DESCRIPTION
-                },
-                ImageUrl : 'sap-icon://product'
-            },
-            FieldGroup#ProductDetails  : {
-                $Type : 'UI.FieldGroupType',
-                Data : [
-                    {
-                        $Type : 'UI.DataField',
-                        Value : PRODUCT_ID,
-                    },
-                    {
-                        $Type : 'UI.DataField',
-                        Value : DESCRIPTION,
-                    },
-                    {
-                        $Type : 'UI.DataField',
-                        Value : TYPE_CODE,
-                    },
-                    {
-                        $Type : 'UI.DataField',
-                        Value : CATEGORY,
-                    },
-                    {
-                        $Type : 'UI.DataField',
-                        Value : SUPPLIER_GUID.COMPANY_NAME,
-                    }
+    //     UI: {
+    //         HeaderInfo  : {
+    //             $Type : 'UI.HeaderInfoType',
+    //             TypeName : 'Product',
+    //             TypeNamePlural : 'Products',
+    //             Title : {
+    //                 Value : PRODUCT_ID
+    //             },
+    //             Description :{
+    //                 Value : DESCRIPTION
+    //             },
+    //             ImageUrl : 'sap-icon://product'
+    //         },
+    //         FieldGroup#ProductDetails  : {
+    //             $Type : 'UI.FieldGroupType',
+    //             Data : [
+    //                 {
+    //                     $Type : 'UI.DataField',
+    //                     Value : PRODUCT_ID,
+    //                 },
+    //                 {
+    //                     $Type : 'UI.DataField',
+    //                     Value : DESCRIPTION,
+    //                 },
+    //                 {
+    //                     $Type : 'UI.DataField',
+    //                     Value : TYPE_CODE,
+    //                 },
+    //                 {
+    //                     $Type : 'UI.DataField',
+    //                     Value : CATEGORY,
+    //                 },
+    //                 {
+    //                     $Type : 'UI.DataField',
+    //                     Value : SUPPLIER_GUID.COMPANY_NAME,
+    //                 }
                     
-                ],
+    //             ],
                 
-            },
-        }
-    );
+    //         },
+    //     }
+    // );
     
     
