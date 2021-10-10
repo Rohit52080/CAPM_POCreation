@@ -128,3 +128,15 @@ POST  http://localhost:4004/CatalogService/POs_boost?NODE_KEY=74867AD200E41EDBA5
 Content-Type: application/json
 
 {}
+
+###Security testing call will fail
+GET http://localhost:4004/CatalogService/EmployeeSet
+
+###Security testing (will get all records here as rohit is admin user )
+GET http://localhost:4004/CatalogService/EmployeeSet
+Authorization: Basic rohit:
+
+
+###Security testing (will get only bank of landon and newyork as for ananya we are filtering the data)
+GET http://localhost:4004/CatalogService/EmployeeSet
+Authorization: Basic rohit:

@@ -1,0 +1,18 @@
+{ 
+  "welcomeFile": "purcahseorderapplication/webapp/", 
+  "authenticationMethod": "route",
+  "routes": [ 
+    { 
+      "source": "^/purcahseorderapplication/webapp/(.*)$", 
+      "target": "$1",
+      "csrfProtection": false,
+      "autheticationType": "xsuaa",
+      "localDir": "purcahseorderapplication/webapp/" 
+    }, 
+    { 
+      "source": "^/(.*)", 
+      "destination": "srv-api" 
+    } 
+  ] 
+}
+
