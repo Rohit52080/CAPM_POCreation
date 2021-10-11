@@ -1,6 +1,9 @@
 # Getting Started
 
+
 Welcome to your new project.
+The project is completely build on CAPM Model following the best practices.
+It cover end to end scenerio of Purchase order creation along with line items.
 
 It contains these folders and files, following our recommended project layout:
 
