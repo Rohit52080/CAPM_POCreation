@@ -1,0 +1,59 @@
+_schema-version: '3.1'
+ID: capm12
+version: 1.0.0
+description: A simple CAP project.
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install --production
+        - npx -p @sap/cds-dk cds build --production
+modules:
+  - name: capm-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: capm-db
+      - name: capm-xsuaa
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: '${default-url}'
+  - name: capm-ui
+    type: nodejs
+    path: app
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api
+          strictSSL: true
+          forwardAuthToken: true
+          url: '~{srv-url}'
+      - name: capm-xsuaa
+  - name: capm-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+      requires:
+        - name: capm12-db
+resources:
+  - name: capm-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+    properties:
+      hdi-service-name: '${service-name}'
+  - name: capm-xsuaa
+    type: org.cloudfoundry.managed-service
+    description: Manage by SAP
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json

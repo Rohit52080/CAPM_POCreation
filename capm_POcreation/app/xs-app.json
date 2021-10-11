@@ -1,0 +1,16 @@
+{ 
+  "welcomeFile": "purcahseorderapplication/webapp/", 
+  "authenticationMethod": "none",
+  "routes": [ 
+    { 
+      "source": "^/purcahseorderapplication/webapp/(.*)$", 
+      "target": "$1",
+      "localDir": "purcahseorderapplication/webapp/" 
+    }, 
+    { 
+      "source": "^/(.*)", 
+      "destination": "srv-api" 
+    } 
+  ] 
+}
+
